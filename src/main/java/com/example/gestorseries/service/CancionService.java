@@ -5,6 +5,8 @@ import com.example.gestorseries.model.Cancion;
 import java.util.List;
 
 public interface CancionService {
+    void eliminar(Long id);
+    Cancion obtenerPorId(Long id);
     Cancion crear (Cancion cancion);
     List<Cancion> listar ();
 }
