@@ -1,5 +1,6 @@
 package com.example.gestorseries.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,5 +26,6 @@ public class Album {
             orphanRemoval = true
 
     )
+    @JsonManagedReference
     private List<Cancion> canciones;
 }

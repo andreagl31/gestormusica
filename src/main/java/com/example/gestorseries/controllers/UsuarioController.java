@@ -5,6 +5,8 @@ import com.example.gestorseries.model.Usuario;
 import com.example.gestorseries.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
+
 public class UsuarioController {
     private final UsuarioService usuarioService;
 
@@ -34,6 +37,7 @@ public class UsuarioController {
 
     // Eliminar usuario
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         usuarioService.eliminar(id);
         return ResponseEntity.noContent().build();

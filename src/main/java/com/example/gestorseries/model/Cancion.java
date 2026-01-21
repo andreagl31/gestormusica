@@ -1,5 +1,6 @@
 package com.example.gestorseries.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class Cancion {
     //1:n cancion album
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "album_id",nullable = false)
+    @JsonBackReference //para serializar la lista
     private Album album;
     //n:m cancion playlist
     @ManyToMany

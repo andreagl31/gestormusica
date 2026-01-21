@@ -1,5 +1,6 @@
 package com.example.gestorseries.service.implementaciones;
 
+import com.example.gestorseries.Excepciones.ResourceNotFoundException;
 import com.example.gestorseries.dtos.ArtistaDTO;
 import com.example.gestorseries.dtos.CancionDTO;
 import com.example.gestorseries.dtos.CancionSimpleDTO;
@@ -44,7 +45,7 @@ public class CancionServiceImpl implements CancionService {
     @Override
     public CancionDTO obtenerPorId(Long id) {
         return toCancionDTO(cancionRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Canción no encontrada")));
+                .orElseThrow(() -> new ResourceNotFoundException("Canción con ID " + id + " no encontrado")));
     }
 
     @Override

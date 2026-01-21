@@ -1,5 +1,6 @@
 package com.example.gestorseries.dtos;
 
+import com.example.gestorseries.model.Role;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public class UsuarioDTO {
     private boolean activo;
     private LocalDate fechaRegistro;
     private String email;
-    private String role;
+    private Role role;
 
     private PerfilSimpleDTO perfil;
     private Set<PlaylistSimpleDTO> playlists; //lista de los ids de las playlist

@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,20 +17,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
+@EnableMethodSecurity
 // es la configuración de seguridad de spring security, define como se protege todo
 //como se autentifican y como se hacen los web tokens
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter; // filtro que intercepta JWT
-
+//define como se protege la app con métodos
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/usuarios/login", "/api/usuarios/crear").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(jwtFilter);
+        http.csrf(csrf -> csrf.disable()) // vamos a decir que autorice el registro y login
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/usuarios/login", "/api/usuarios/register").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

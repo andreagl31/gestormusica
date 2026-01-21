@@ -1,5 +1,6 @@
 package com.example.gestorseries.service.implementaciones;
 
+import com.example.gestorseries.Excepciones.ResourceNotFoundException;
 import com.example.gestorseries.dtos.PerfilDTO;
 import com.example.gestorseries.model.Perfil;
 import com.example.gestorseries.repository.PerfilRepository;
@@ -34,7 +35,7 @@ public class PerfilServiceImpl implements PerfilService {
 
     @Override
     public PerfilDTO obtenerPorId(Long id) {
-        return toPerfilDTO(perfilRepo.findById(id).orElse(null));
+        return toPerfilDTO(perfilRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Perfil no encontrado con id " + id)));
     }
 
     @Override

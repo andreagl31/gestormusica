@@ -1,5 +1,6 @@
 package com.example.gestorseries.service.implementaciones;
 
+import com.example.gestorseries.Excepciones.ResourceNotFoundException;
 import com.example.gestorseries.dtos.AlbumDTO;
 import com.example.gestorseries.dtos.CancionDTO;
 import com.example.gestorseries.model.Album;
@@ -48,7 +49,7 @@ public class AlbumServiceImpl implements AlbumService {
     //métodos públicos
     @Override
     public AlbumDTO obtenerPorId(Long id) {
-        Album album= albumRepo.findById(id).orElse(null);
+        Album album= albumRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Album con ID " + id + " no encontrado"));
         return toAlbumDTO(album);
     }
 

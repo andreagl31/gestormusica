@@ -7,6 +7,7 @@ import com.example.gestorseries.model.Cancion;
 import com.example.gestorseries.service.CancionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class CancionController {
     //ahora vamos a controlar las peticiones desde el front
     //te devuelve la cancion creada y recibe en el request body la cancion a crear,
     //llama al mñetodo del constructor para crearla
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CancionDTO> crearCancion(@RequestBody Cancion cancion){
         return ResponseEntity.ok(cancionService.crear(cancion));
@@ -42,6 +44,8 @@ public class CancionController {
     }
 
     //eliminar
+    // esto es para revisar si ed administrador
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         cancionService.eliminar(id);

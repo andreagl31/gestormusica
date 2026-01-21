@@ -6,6 +6,7 @@ import com.example.gestorseries.service.AlbumService;
 import com.example.gestorseries.service.implementaciones.AlbumServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +37,12 @@ public class AlbumController {
     @GetMapping("/con-canciones")
     public ResponseEntity<List<AlbumDTO>> listarAlbumesConCanciones() {
         return ResponseEntity.ok(albumService.listar());
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        albumService.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

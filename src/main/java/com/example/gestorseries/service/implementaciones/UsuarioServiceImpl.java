@@ -1,5 +1,6 @@
 package com.example.gestorseries.service.implementaciones;
 
+import com.example.gestorseries.Excepciones.ResourceNotFoundException;
 import com.example.gestorseries.dtos.CancionSimpleDTO;
 import com.example.gestorseries.dtos.PerfilSimpleDTO;
 import com.example.gestorseries.dtos.PlaylistSimpleDTO;
@@ -58,7 +59,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         dto.setEmail(u.getEmail());
         dto.setActivo(u.isActivo());
         dto.setFechaRegistro(u.getFechaRegistro());
-        dto.setRole(u.getRole().name());
+        dto.setRole(u.getRole());
 
         dto.setPerfil(toPerfilSimpleDTO(u.getPerfil()));
 
@@ -88,7 +89,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioDTO obtenerPorId(Long id) {
         return toUsuarioDTO(usuarioRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario con ID " + id + " no encontrado")));
     }
 
     @Override
