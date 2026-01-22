@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>gestorseries</artifactId>
+	<artifactId>gestormusica</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gestorseries</name>
+	<name>gestormusica</name>
 	<description>Proyecto gestor de series</description>
 	<url/>
 	<licenses>
